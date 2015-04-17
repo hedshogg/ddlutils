@@ -65,22 +65,34 @@ public abstract class TypeMap
     public static final String INTEGER       = "INTEGER";
     /** The string representation of the {@link java.sql.Types#JAVA_OBJECT} constant. */
     public static final String JAVA_OBJECT   = "JAVA_OBJECT";
+    /** The string representation of the {@link java.sql.Types#LONGNVARCHAR} constant. */
+    public static final String LONGNVARCHAR = "LONGNVARCHAR";
     /** The string representation of the {@link java.sql.Types#LONGVARBINARY} constant. */
     public static final String LONGVARBINARY = "LONGVARBINARY";
     /** The string representation of the {@link java.sql.Types#LONGVARCHAR} constant. */
     public static final String LONGVARCHAR   = "LONGVARCHAR";
+    /** The string representation of the {@link java.sql.Types#NCHAR} constant. */
+    public static final String NCHAR         = "NCHAR";
+    /** The string representation of the {@link java.sql.Types#NCLOB} constant. */
+    public static final String NCLOB         = "NCLOB";
     /** The string representation of the {@link java.sql.Types#NULL} constant. */
     public static final String NULL          = "NULL";
     /** The string representation of the {@link java.sql.Types#NUMERIC} constant. */
     public static final String NUMERIC       = "NUMERIC";
+    /** The string representation of the {@link java.sql.Types#NVARCHAR} constant. */
+    public static final String NVARCHAR      = "NVARCHAR";
     /** The string representation of the {@link java.sql.Types#OTHER} constant. */
     public static final String OTHER         = "OTHER";
     /** The string representation of the {@link java.sql.Types#REAL} constant. */
     public static final String REAL          = "REAL";
     /** The string representation of the {@link java.sql.Types#REF} constant. */
     public static final String REF           = "REF";
+    /** The string representation of the {@link java.sql.Types#ROWID} constant. */
+    public static final String ROWID         = "ROWID";
     /** The string representation of the {@link java.sql.Types#SMALLINT} constant. */
     public static final String SMALLINT      = "SMALLINT";
+    /** The string representation of the {@link java.sql.Types#SQLXML} constant. */
+    public static final String SQLXML        = "SQLXML";
     /** The string representation of the {@link java.sql.Types#STRUCT} constant. */
     public static final String STRUCT        = "STRUCT";
     /** The string representation of the {@link java.sql.Types#TIME} constant. */
@@ -119,14 +131,20 @@ public abstract class TypeMap
         registerJdbcType(Types.FLOAT,         FLOAT,         JdbcTypeCategoryEnum.NUMERIC);
         registerJdbcType(Types.INTEGER,       INTEGER,       JdbcTypeCategoryEnum.NUMERIC);
         registerJdbcType(Types.JAVA_OBJECT,   JAVA_OBJECT,   JdbcTypeCategoryEnum.SPECIAL);
+        registerJdbcType(Types.LONGNVARCHAR,  LONGNVARCHAR,  JdbcTypeCategoryEnum.TEXTUAL);
         registerJdbcType(Types.LONGVARBINARY, LONGVARBINARY, JdbcTypeCategoryEnum.BINARY);
         registerJdbcType(Types.LONGVARCHAR,   LONGVARCHAR,   JdbcTypeCategoryEnum.TEXTUAL);
+        registerJdbcType(Types.NCHAR,         NCHAR,         JdbcTypeCategoryEnum.TEXTUAL);
+        registerJdbcType(Types.NCLOB,         NCLOB,         JdbcTypeCategoryEnum.TEXTUAL);
         registerJdbcType(Types.NULL,          NULL,          JdbcTypeCategoryEnum.SPECIAL);
         registerJdbcType(Types.NUMERIC,       NUMERIC,       JdbcTypeCategoryEnum.NUMERIC);
+        registerJdbcType(Types.NVARCHAR,      NVARCHAR,      JdbcTypeCategoryEnum.TEXTUAL);
         registerJdbcType(Types.OTHER,         OTHER,         JdbcTypeCategoryEnum.SPECIAL);
         registerJdbcType(Types.REAL,          REAL,          JdbcTypeCategoryEnum.NUMERIC);
         registerJdbcType(Types.REF,           REF,           JdbcTypeCategoryEnum.SPECIAL);
+        registerJdbcType(Types.ROWID,         ROWID,         JdbcTypeCategoryEnum.NUMERIC);
         registerJdbcType(Types.SMALLINT,      SMALLINT,      JdbcTypeCategoryEnum.NUMERIC);
+        registerJdbcType(Types.SQLXML,        SQLXML,        JdbcTypeCategoryEnum.TEXTUAL);
         registerJdbcType(Types.STRUCT,        STRUCT,        JdbcTypeCategoryEnum.SPECIAL);
         registerJdbcType(Types.TIME,          TIME,          JdbcTypeCategoryEnum.DATETIME);
         registerJdbcType(Types.TIMESTAMP,     TIMESTAMP,     JdbcTypeCategoryEnum.DATETIME);
@@ -141,7 +159,7 @@ public abstract class TypeMap
 
     /**
      * Returns all supported JDBC types.
-     * 
+     *
      * @return The type codes ({@link java.sql.Types} constants)
      */
     public static int[] getSuportedJdbcTypes()
@@ -155,11 +173,11 @@ public abstract class TypeMap
         }
         return typeCodes;
     }
-    
+
     /**
      * Returns the JDBC type code (one of the {@link java.sql.Types} constants) that
      * corresponds to the given JDBC type name.
-     * 
+     *
      * @param typeName The JDBC type name (case is ignored)
      * @return The type code or <code>null</code> if the type is unknown
      */
@@ -171,7 +189,7 @@ public abstract class TypeMap
     /**
      * Returns the JDBC type name that corresponds to the given type code
      * (one of the {@link java.sql.Types} constants).
-     * 
+     *
      * @param typeCode The type code
      * @return The JDBC type name (one of the constants in this class) or
      *         <code>null</code> if the type is unknown
@@ -183,12 +201,12 @@ public abstract class TypeMap
 
     /**
      * Registers a jdbc type.
-     * 
+     *
      * @param typeCode The type code (one of the {@link java.sql.Types} constants)
      * @param typeName The type name (case is ignored)
      * @param category The type category
      */
-    protected static void registerJdbcType(int typeCode, String typeName, JdbcTypeCategoryEnum category) 
+    protected static void registerJdbcType(int typeCode, String typeName, JdbcTypeCategoryEnum category)
     {
         Integer typeId = new Integer(typeCode);
 
@@ -208,7 +226,7 @@ public abstract class TypeMap
     /**
      * Determines whether the given jdbc type (one of the {@link java.sql.Types} constants)
      * is a numeric type.
-     * 
+     *
      * @param jdbcTypeCode The type code
      * @return <code>true</code> if the type is a numeric one
      */
@@ -222,7 +240,7 @@ public abstract class TypeMap
     /**
      * Determines whether the given jdbc type (one of the {@link java.sql.Types} constants)
      * is a date/time type.
-     * 
+     *
      * @param jdbcTypeCode The type code
      * @return <code>true</code> if the type is a numeric one
      */
@@ -236,7 +254,7 @@ public abstract class TypeMap
     /**
      * Determines whether the given jdbc type (one of the {@link java.sql.Types} constants)
      * is a text type.
-     * 
+     *
      * @param jdbcTypeCode The type code
      * @return <code>true</code> if the type is a text one
      */
@@ -250,7 +268,7 @@ public abstract class TypeMap
     /**
      * Determines whether the given jdbc type (one of the {@link java.sql.Types} constants)
      * is a binary type.
-     * 
+     *
      * @param jdbcTypeCode The type code
      * @return <code>true</code> if the type is a binary one
      */
@@ -264,7 +282,7 @@ public abstract class TypeMap
     /**
      * Determines whether the given sql type (one of the {@link java.sql.Types} constants)
      * is a special type.
-     * 
+     *
      * @param jdbcTypeCode The type code
      * @return <code>true</code> if the type is a special one
      */
